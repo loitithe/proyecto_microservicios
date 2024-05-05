@@ -105,7 +105,6 @@ public class UsuarioController {
 
     /**
      * no debe existir un nombre repetido ?
-     *
      * @param nombre
      * @return
      */
@@ -124,11 +123,17 @@ public class UsuarioController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.emptyMap());
         }
     }
-    @GetMapping
-    public ResponseEntity<String>checkIfExists(@RequestParam int id){
+
+    /**
+     * http://localhost:8702/usuarios/checkIfExist/?id=10
+     * @param id
+     * @return
+     */
+    @GetMapping("/checkIfExist/")
+    public ResponseEntity<String>checkIfExist(@RequestParam int id){
         boolean existe = usuarioService.checkIfExists(id);
         if (existe){
             return ResponseEntity.ok(""+existe);
-        }else return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se ha encontrado ningun usuario con ese id");
+        }else return ResponseEntity.status(HttpStatus.NOT_FOUND).body(""+existe);
     }
 }
