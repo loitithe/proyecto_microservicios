@@ -1,9 +1,9 @@
-package com.microservicios.usuarios;
+package com.microservicios.usuarios.model;
 
 import jakarta.persistence.*;
 import lombok.*;
 
-@Getter
+@Data
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Entity
@@ -31,7 +31,6 @@ public class Usuario {
     @NonNull
     @Column(length = 100)
     private String contrasena;
-
 
 
 }
