@@ -1,6 +1,7 @@
-package com.microservicios.usuarios.model;
+package com.microservicios.usuarios.dto;
 
 
+import com.microservicios.usuarios.entidades.Usuario;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -2,8 +2,8 @@ package com.microservicios.usuarios.servicio;
 
 
 import com.microservicios.usuarios.repositorio.IUserRepository;
-import com.microservicios.usuarios.model.Usuario;
-import com.microservicios.usuarios.model.UsuarioDTO;
+import com.microservicios.usuarios.entidades.Usuario;
+import com.microservicios.usuarios.dto.UsuarioDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

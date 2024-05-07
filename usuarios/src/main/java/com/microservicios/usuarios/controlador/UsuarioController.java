@@ -1,6 +1,6 @@
 package com.microservicios.usuarios.controlador;
 
-import com.microservicios.usuarios.model.UsuarioDTO;
+import com.microservicios.usuarios.dto.UsuarioDTO;
 import com.microservicios.usuarios.servicio.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,13 +39,13 @@ public class UsuarioController {
     /**
      * http://localhost:8702/usuarios/remove?id=4
      * http://localhost:8702/usuarios/?nombre=María López&contrasena=secreto456
-     * @param nombre
+     * @param usuario
      * @return
      */
-    @DeleteMapping("/eliminarusuario")
-    public ResponseEntity<String> eliminarUsuario(@RequestParam String nombre, @RequestParam String contrasena) {
-        UsuarioDTO user = usuarioService.getByNombreAndContrasena(nombre,contrasena);
-        if (user != null && user.getContrasena().equals(contrasena)) {
+    @DeleteMapping("/")
+    public ResponseEntity<String> eliminarUsuario(@RequestBody UsuarioDTO usuario) {
+        UsuarioDTO user = usuarioService.getByNombreAndContrasena(usuario.getNombre(),usuario.getContrasena());
+        if (user != null && user.getContrasena().equals(usuario.getContrasena())) {
             usuarioService.deleteUser(user.getUsuario_id());
             return ResponseEntity.status(HttpStatus.ACCEPTED).body("Usuario eliminado");
         }

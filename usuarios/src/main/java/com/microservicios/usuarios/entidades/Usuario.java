@@ -1,4 +1,4 @@
-package com.microservicios.usuarios.model;
+package com.microservicios.usuarios.entidades;
 
 import jakarta.persistence.*;
 import lombok.*;

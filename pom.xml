@@ -10,7 +10,7 @@
 	<modules> <!-- Nombre de los módulos-->
 		<module>eurekaServer</module>
 		<module>usuarios</module>
-<!--		<module>modulo2</module>-->
+		<module>comentarios</module>
 <!--        <module>modulo3</module>-->
 	</modules>
 	<properties> <!-- Propiedades del proyecto-->

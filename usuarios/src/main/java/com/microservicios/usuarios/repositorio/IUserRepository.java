@@ -1,6 +1,6 @@
 package com.microservicios.usuarios.repositorio;
 
-import com.microservicios.usuarios.model.Usuario;
+import com.microservicios.usuarios.entidades.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
