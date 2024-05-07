@@ -11,6 +11,7 @@ public class ComentariosController {
 
 
     //Crear comentario (crearComentario):
+
     //Eliminar todos los comentarios (eliminarComentarios):
     //Elimina un comentario de un usuario (eliminarComentarioDeUsuario):
     //Listará todos los comentarios de las reservas de un determinado hotel (listarComentariosHotel):
