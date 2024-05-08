@@ -11,7 +11,7 @@
 		<module>eurekaServer</module>
 		<module>usuarios</module>
 		<module>comentarios</module>
-<!--        <module>modulo3</module>-->
+      <module>reservas</module>
 	</modules>
 	<properties> <!-- Propiedades del proyecto-->
 		<java.version>17</java.version>

@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="usuarios (1)" />
         <module name="usuarios" />
         <module name="eurekaServer" />
         <module name="comentarios" />
@@ -14,6 +15,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Empleados" target="17" />
+      <module name="reservas" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -22,6 +24,7 @@
       <module name="comentarios" options="-parameters" />
       <module name="eurekaServer" options="-parameters" />
       <module name="usuarios" options="-parameters" />
+      <module name="usuarios (1)" options="-parameters" />
     </option>
   </component>
 </project>
