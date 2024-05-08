@@ -10,16 +10,23 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/hotel")
 public class HotelController {
     @Autowired
-    private HotelService hotelService;
+    private final HotelService hotelService;
 
-    @PostMapping("/")
+    @Autowired
+    public HotelController(HotelService hotelService) {
+        this.hotelService = hotelService;
+    }
+
+    @PostMapping("")
     public ResponseEntity<String> crearHotel(@RequestBody HotelDTO hotelDTO) {
+
         String mensaje = hotelService.crearHotel(hotelDTO);
         return ResponseEntity.ok(mensaje);
     }
 
-    @PatchMapping("/")
+    @PatchMapping("")
     public ResponseEntity<String> actualizarHotel(@RequestBody HotelDTO hotelDTO) {
+
         String mensaje = hotelService.actualizarHotel(hotelDTO);
         return ResponseEntity.ok(mensaje);
     }
@@ -28,5 +35,17 @@ public class HotelController {
     public ResponseEntity<String> eliminarHotel(@PathVariable int id) {
         String mensaje = hotelService.eliminarHotel(id);
         return ResponseEntity.ok(mensaje);
+    }
+
+    @PostMapping("/id")
+    public ResponseEntity<String> obtenerIdApartirNombre(@RequestParam String nombre) {
+        String id = hotelService.obtenerIdApartirNombre(nombre);
+        return ResponseEntity.ok(id);
+    }
+
+    @PostMapping("/nombre")
+    public ResponseEntity<String> obtenerNombreAPartirId(@RequestParam int id) {
+        String nombre = hotelService.obtenerNombreAPartirId(id);
+        return ResponseEntity.ok(nombre);
     }
 }

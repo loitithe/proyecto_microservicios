@@ -1,7 +1,11 @@
 package com.microservicios.comentarios.controladores;
 
 import com.microservicios.comentarios.servicios.ComentariosService;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
+@RequestMapping("/comentarios")
 public class ComentariosController {
     private final ComentariosService comentariosService;
 
