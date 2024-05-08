@@ -2,32 +2,24 @@ package com.microservicios.reservas.dto;
 
 import com.microservicios.reservas.model.Habitacion;
 import com.microservicios.reservas.model.Hotel;
-import jakarta.persistence.JoinColumn;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class HabitacionDTO {
-    private int id;
-    private Hotel hotel;
+public class CrearHabitacionDTO {
+
+    private int hotel_id;
     private int numero_habitacion;
     private String tipo ;
     private BigDecimal precio;
-    private boolean disponible;
-
-    public HabitacionDTO(Habitacion habitacion){
-        this.id=habitacion.getId();
-        this.hotel= habitacion.getHotel();
+    private CrearHabitacionDTO(Habitacion habitacion){
+        this.hotel_id= habitacion.getHotel().getHotel_id();
         this.numero_habitacion= habitacion.getNumero_habitacion();
         this.tipo= habitacion.getTipo();
         this.precio= habitacion.getPrecio();
-        this.disponible=habitacion.isDisponible();
     }
 }

@@ -93,7 +93,7 @@ public class UsuarioController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no validado");
         }
     }
-//
+// http://localhost:8702/usuarios/info/id/?id=1
     @GetMapping("/info/id/")
     public ResponseEntity<String>getNombreUsuario(@RequestParam int id){
         UsuarioDTO usuario = usuarioService.findById(id);

@@ -6,16 +6,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 @Entity
 @Table(name = "habitacion")
 public class Habitacion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "habitacion_id")
     private int id;
 
     @ManyToOne
@@ -23,7 +25,7 @@ public class Habitacion {
     private Hotel hotel;
     private int numero_habitacion;
     private String tipo ;
-    private double precio;
+    private BigDecimal precio;
     private boolean disponible;
 
 }

@@ -50,4 +50,8 @@ public class HabitacionService {
     public HabitacionDTO obtenerHabitacionPorId(int id) {
         return new HabitacionDTO(this.habitacionRepository.findById(id));
     }
+
+    public Habitacion findById(int habitacionId) {
+        return habitacionRepository.findById(habitacionId);
+    }
 }

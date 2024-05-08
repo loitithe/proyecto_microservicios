@@ -81,6 +81,7 @@ public class UsuarioService {
     public String actualizarUsuario(UsuarioDTO usuarioDTO) {
         Usuario user = userRepository.findById(usuarioDTO.getUsuario_id()).orElse(null);
         if (user != null) {
+            user.setUsuario_id(usuarioDTO.getUsuario_id());
             user.setNombre(usuarioDTO.getNombre());
             user.setCorreo_electronico(usuarioDTO.getCorreo_electronico());
             user.setDireccion(usuarioDTO.getDireccion());
