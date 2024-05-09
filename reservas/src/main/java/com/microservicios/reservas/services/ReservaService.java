@@ -9,6 +9,8 @@ import com.microservicios.reservas.repositories.IReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import org.springframework.web.client.RestTemplate;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -19,6 +21,8 @@ public class ReservaService {
 
     @Autowired
     private IReservaRepository reservaRepository;
+    @Autowired
+    private RestTemplate restTemplate;
 
     private HabitacionService habitacionService;
 
@@ -26,8 +30,14 @@ public class ReservaService {
 
 
     public boolean comprobarContrasena(String nombre, String contrasena) {
-        return true;
+        String url = "http://localhost:8702/usuarios/id?nombre=" + nombre+"/contrasena?contrasena="+contrasena;
+        String template =  restTemplate.postForObject(url, null, String.class);
+        if (template!=null){
+            return true;
+        }else return  false;
     }
+
+
 
     public String crearReserva(CrearReservaDTO reservaDTO) {
         try {
