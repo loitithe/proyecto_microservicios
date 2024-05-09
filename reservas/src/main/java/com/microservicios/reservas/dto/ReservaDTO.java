@@ -1,7 +1,7 @@
 package com.microservicios.reservas.dto;
 
-import com.microservicios.reservas.model.Habitacion;
-import com.microservicios.reservas.model.Reserva;
+import com.microservicios.reservas.models.Habitacion;
+import com.microservicios.reservas.models.Reserva;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;

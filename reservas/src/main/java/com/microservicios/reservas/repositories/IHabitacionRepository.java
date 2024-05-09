@@ -1,6 +1,6 @@
-package com.microservicios.reservas.repositorios;
+package com.microservicios.reservas.repositories;
 
-import com.microservicios.reservas.model.Habitacion;
+import com.microservicios.reservas.models.Habitacion;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

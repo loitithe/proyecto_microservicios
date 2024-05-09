@@ -1,9 +1,9 @@
-package com.microservicios.reservas.servicios;
+package com.microservicios.reservas.services;
 
 import com.microservicios.reservas.dto.CrearReservaDTO;
 import com.microservicios.reservas.dto.ReservaDTO;
-import com.microservicios.reservas.model.Reserva;
-import com.microservicios.reservas.repositorios.IReservaRepository;
+import com.microservicios.reservas.models.Reserva;
+import com.microservicios.reservas.repositories.IReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

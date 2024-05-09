@@ -1,9 +1,9 @@
 
-package com.microservicios.reservas.servicios;
+package com.microservicios.reservas.services;
 
 import com.microservicios.reservas.dto.HabitacionDTO;
-import com.microservicios.reservas.model.Habitacion;
-import com.microservicios.reservas.repositorios.IHabitacionRepository;
+import com.microservicios.reservas.models.Habitacion;
+import com.microservicios.reservas.repositories.IHabitacionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

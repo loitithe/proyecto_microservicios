@@ -1,6 +1,6 @@
 package com.microservicios.reservas.dto;
 
-import com.microservicios.reservas.model.Reserva;
+import com.microservicios.reservas.models.Reserva;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

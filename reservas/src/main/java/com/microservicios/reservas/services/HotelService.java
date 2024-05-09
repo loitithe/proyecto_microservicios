@@ -1,8 +1,8 @@
-package com.microservicios.reservas.servicios;
+package com.microservicios.reservas.services;
 
 import com.microservicios.reservas.dto.HotelDTO;
-import com.microservicios.reservas.model.Hotel;
-import com.microservicios.reservas.repositorios.IHotelRepository;
+import com.microservicios.reservas.models.Hotel;
+import com.microservicios.reservas.repositories.IHotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

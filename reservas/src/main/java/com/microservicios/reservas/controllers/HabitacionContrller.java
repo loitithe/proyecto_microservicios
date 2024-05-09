@@ -1,8 +1,8 @@
-package com.microservicios.reservas.controladores;
+package com.microservicios.reservas.controllers;
 
 import com.microservicios.reservas.dto.HabitacionDTO;
-import com.microservicios.reservas.model.Habitacion;
-import com.microservicios.reservas.servicios.HabitacionService;
+import com.microservicios.reservas.models.Habitacion;
+import com.microservicios.reservas.services.HabitacionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

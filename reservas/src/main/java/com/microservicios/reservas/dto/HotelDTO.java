@@ -1,6 +1,6 @@
 package com.microservicios.reservas.dto;
 
-import com.microservicios.reservas.model.Hotel;
+import com.microservicios.reservas.models.Hotel;
 import lombok.Getter;
 import lombok.Setter;
 

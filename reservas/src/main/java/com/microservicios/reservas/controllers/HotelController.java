@@ -1,7 +1,7 @@
-package com.microservicios.reservas.controladores;
+package com.microservicios.reservas.controllers;
 
 import com.microservicios.reservas.dto.HotelDTO;
-import com.microservicios.reservas.servicios.HotelService;
+import com.microservicios.reservas.services.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
