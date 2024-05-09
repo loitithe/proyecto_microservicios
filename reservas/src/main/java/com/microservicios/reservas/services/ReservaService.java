@@ -2,7 +2,9 @@ package com.microservicios.reservas.services;
 
 import com.microservicios.reservas.dto.CrearReservaDTO;
 import com.microservicios.reservas.dto.ReservaDTO;
+import com.microservicios.reservas.models.Hotel;
 import com.microservicios.reservas.models.Reserva;
+import com.microservicios.reservas.repositories.IHotelRepository;
 import com.microservicios.reservas.repositories.IReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,24 +13,20 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ReservaService {
 
     @Autowired
-    private final IReservaRepository reservaRepository;
-    @Autowired
-    private final HabitacionService habitacionService;
+    private IReservaRepository reservaRepository;
 
-    @Autowired
-    public ReservaService(IReservaRepository reservaRepository, HabitacionService habitacionService) {
-        this.reservaRepository = reservaRepository;
-        this.habitacionService = habitacionService;
-    }
+    private HabitacionService habitacionService;
 
-    public boolean comprobarContrasena(String nombre,String contrasena){
-        return  true;
+    private IHotelRepository iHotelRepository;
+
+
+    public boolean comprobarContrasena(String nombre, String contrasena) {
+        return true;
     }
 
     public String crearReserva(CrearReservaDTO reservaDTO) {
@@ -68,7 +66,7 @@ public class ReservaService {
         }
     }
 
-    public List<ReservaDTO> listarReservasUsuario(String usuario, String contraseña) {
+    public List<ReservaDTO> listarReserva(int usuario, String contraseña) {
         List<Reserva> reservas = reservaRepository.findByUsuario(usuario);
         List<ReservaDTO> reservasDTO = new ArrayList<>();
         for (Reserva reserva : reservas) {
@@ -87,8 +85,9 @@ public class ReservaService {
     }
 
     public boolean checkReserva(int idUsuario, int idHotel, int idReserva) {
-        Reserva reserva = reservaRepository.findByIdAndUsuarioAndHabitacion_Hotel_Id(idReserva, idUsuario, idHotel);
-        if (reserva != null) return true;
+        Reserva reserva = reservaRepository.findByIdAndUsuario(idReserva, idUsuario);
+        Hotel hotel = iHotelRepository.findById(idHotel).orElse(null);
+        if (reserva != null && hotel != null) return true;
         else return false;
     }
 }

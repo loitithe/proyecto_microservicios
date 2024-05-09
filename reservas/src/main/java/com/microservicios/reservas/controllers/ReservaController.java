@@ -34,17 +34,12 @@ public class ReservaController {
         return ResponseEntity.ok(mensaje);
     }
 
-    @GetMapping("")
-    public ResponseEntity<List<ReservaDTO>> listarReservasUsuario(@RequestParam String usuario, @RequestParam String contraseña) {
-        List<ReservaDTO> reservas = reservaService.listarReservasUsuario(usuario, contraseña);
-        return ResponseEntity.ok(reservas);
+    @GetMapping()
+    public ResponseEntity<String> listarReservasUsuario(@RequestParam int usuario, @RequestParam String contraseña) {
+        List<ReservaDTO> reservas = reservaService.listarReserva(usuario, contraseña);
+        return ResponseEntity.ok("reservas");
     }
 
-    @GetMapping("")
-    public ResponseEntity<List<ReservaDTO>> listarReservasSegunEstado(@RequestParam String estado) {
-        List<ReservaDTO> reservas = reservaService.listarReservasSegunEstado(estado);
-        return ResponseEntity.ok(reservas);
-    }
 
     @GetMapping("/check")
     public ResponseEntity<Boolean> checkReserva(@RequestParam int idUsuario, @RequestParam int idHotel, @RequestParam int idReserva) {

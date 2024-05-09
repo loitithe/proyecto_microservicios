@@ -12,10 +12,6 @@ public class HabitacionService {
     @Autowired
     private IHabitacionRepository habitacionRepository;
 
-    public HabitacionService(IHabitacionRepository habitacionRepository) {
-        this.habitacionRepository = habitacionRepository;
-    }
-
 
     public String crearHabitacion(HabitacionDTO habitacionDTO) {
         Habitacion habitacion = new Habitacion();

@@ -16,9 +16,11 @@ public class Reserva {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int reserva_id;
+    @Column(name = "reserva_id")
+    private int id;
 
-    private int usuario_id;
+    @Column(name = "usuario_id")
+    private int usuario;
     @ManyToOne
     @JoinColumn(name = "habitacion_id")
     private Habitacion habitacion;

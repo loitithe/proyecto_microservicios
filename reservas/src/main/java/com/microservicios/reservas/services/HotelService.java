@@ -10,12 +10,9 @@ import java.util.Optional;
 
 @Service
 public class HotelService {
-    private final IHotelRepository hotelRepository;
-
     @Autowired
-    public HotelService(IHotelRepository hotelRepository) {
-        this.hotelRepository = hotelRepository;
-    }
+    private IHotelRepository hotelRepository;
+
 
     public String crearHotel(HotelDTO hotelDTO) {
         try {
@@ -31,8 +28,8 @@ public class HotelService {
 
     public String actualizarHotel(HotelDTO hotelDTO) {
         try {
-          Hotel hotel = hotelRepository.findById(hotelDTO.getHotel_id()).orElse(null);
-            if (hotel!=null) {
+            Hotel hotel = hotelRepository.findById(hotelDTO.getHotel_id()).orElse(null);
+            if (hotel != null) {
                 hotel.setNombre(hotelDTO.getNombre());
                 hotel.setDireccion(hotelDTO.getDireccion());
                 hotelRepository.save(hotel);
@@ -47,8 +44,8 @@ public class HotelService {
 
     public String eliminarHotel(int id) {
         try {
-           Hotel hotel = hotelRepository.findById(id).orElse(null);
-            if (hotel!=null) {
+            Hotel hotel = hotelRepository.findById(id).orElse(null);
+            if (hotel != null) {
                 hotelRepository.delete(hotel);
                 return "Hotel eliminado correctamente";
             } else {
@@ -62,7 +59,7 @@ public class HotelService {
     public String obtenerIdApartirNombre(String nombre) {
         try {
             Hotel hotel = hotelRepository.findByNombre(nombre);
-            if (hotel!=null) {
+            if (hotel != null) {
                 return "ID del hotel con nombre " + nombre + ": " + hotel.getHotel_id();
             } else {
                 return "Hotel no encontrado con nombre " + nombre;
@@ -75,7 +72,7 @@ public class HotelService {
     public String obtenerNombreAPartirId(int id) {
         try {
             Hotel hotel = hotelRepository.findById(id).orElse(null);
-            if (hotel!=null) {
+            if (hotel != null) {
                 return "Nombre del hotel con ID " + id + ": " + hotel.getNombre();
             } else {
                 return "Hotel no encontrado con ID " + id;

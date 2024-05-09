@@ -2,8 +2,6 @@ package com.microservicios.reservas.dto;
 
 import com.microservicios.reservas.models.Habitacion;
 import com.microservicios.reservas.models.Reserva;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,8 +17,8 @@ public class ReservaDTO {
     private LocalDate fechaFin;
     private String estado;
     public ReservaDTO(Reserva reserva) {
-        this.reservaId = reserva.getReserva_id();
-        this.usuarioId = reserva.getReserva_id();
+        this.reservaId = reserva.getId();
+        this.usuarioId = reserva.getId();
         this.habitacion = reserva.getHabitacion();
         this.fechaInicio = reserva.getFecha_inicio();
         this.fechaFin = reserva.getFecha_fin();

@@ -28,4 +28,5 @@ public class ComentarioDTO {
         this.comentario=comentario.getComentario();
         this.fechaCreacion=comentario.getFechaCreacion();
     }
+
 }

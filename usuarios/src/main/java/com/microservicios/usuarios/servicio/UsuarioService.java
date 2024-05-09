@@ -4,6 +4,7 @@ package com.microservicios.usuarios.servicio;
 import com.microservicios.usuarios.repositorio.IUserRepository;
 import com.microservicios.usuarios.entidades.Usuario;
 import com.microservicios.usuarios.dto.UsuarioDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,11 +12,8 @@ import java.util.List;
 
 @Service
 public class UsuarioService {
-    private final IUserRepository userRepository;
-
-    public UsuarioService(IUserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    @Autowired
+    private  IUserRepository userRepository;
 
     public String saveUser(UsuarioDTO usuarioDTO) {
         // Convertir UsuarioDTO a Usuario antes de guardar
