@@ -1,11 +1,15 @@
 package com.microservicios.reservas.dto;
 
 import com.microservicios.reservas.models.Reserva;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ReservaCambiarEstadoDTO {
 
     private String nombre;

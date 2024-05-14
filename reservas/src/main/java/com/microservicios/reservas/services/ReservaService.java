@@ -1,8 +1,6 @@
 package com.microservicios.reservas.services;
 
-import com.microservicios.reservas.dto.CrearReservaDTO;
-import com.microservicios.reservas.dto.ReservaCambiarEstadoDTO;
-import com.microservicios.reservas.dto.ReservaDTO;
+import com.microservicios.reservas.dto.*;
 import com.microservicios.reservas.models.Hotel;
 import com.microservicios.reservas.models.Reserva;
 import com.microservicios.reservas.repositories.IHotelRepository;
@@ -35,20 +33,15 @@ public class ReservaService {
     public boolean comprobarContrasena(String nombre, String contrasena) {
         RestTemplate restTemplate = new RestTemplate();
         String urlValidarContrasena = "http://localhost:8702/usuarios/validar";
-        // Crear un objeto CrearReservaDTO con los datos proporcionados
+
         CrearReservaDTO crearReservaDTO = new CrearReservaDTO();
         crearReservaDTO.setNombre(nombre);
         crearReservaDTO.setContrasena(contrasena);
 
-        // Configurar los encabezados de la solicitud
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<CrearReservaDTO> request = new HttpEntity<>(crearReservaDTO, headers);
-
-        // Realizar la solicitud POST al servicio de validación de usuarios
         ResponseEntity<Boolean> response = restTemplate.postForEntity(urlValidarContrasena, request, Boolean.class);
-
-        // Verificar la respuesta y devolver el resultado
         if (response.getBody() != null) {
             return response.getBody();
         } else {
@@ -78,15 +71,72 @@ public class ReservaService {
         }
     }
 
+
+
+
+    public String cambiarEstadoReserva(ReservaCambiarEstadoDTO cambioEstadoReservaDTO) {
+        if (comprobarContrasena(cambioEstadoReservaDTO.getNombre(), cambioEstadoReservaDTO.getContrasena())) {
+            try {
+                Reserva reserva = reservaRepository.findById(cambioEstadoReservaDTO.getReserva_id());
+                if (reserva != null) {
+                    reserva.setEstado(cambioEstadoReservaDTO.getEstado());
+                    reservaRepository.save(reserva);
+                    return "Estado de la reserva cambiado" + cambioEstadoReservaDTO.getEstado();
+                } else return "La reserva con ID " + cambioEstadoReservaDTO.getReserva_id() + "no se encontro";
+            } catch (Exception e) {
+                return "Error al cambiar el estado de la reserva" + e.getMessage();
+            }
+        } else return "";
+    }
+
+    public List<ListarReservasDTO> listarReserva(ValidarUsuarioDTO validarUsuarioDTO) {
+        if (comprobarContrasena(validarUsuarioDTO.getNombre(), validarUsuarioDTO.getContrasena())) {
+            //  http://localhost:8702/usuarios/info/
+            List<ListarReservasDTO> listarReservasDTOS = new ArrayList<>();
+            int usuario_id = obtenerIdUsuario(validarUsuarioDTO.getNombre());
+            List<Reserva> reservas = reservaRepository.findByUsuario(usuario_id);
+            ListarReservasDTO newReserva;
+            for (Reserva reserva : reservas) {
+                newReserva = new ListarReservasDTO();
+                newReserva.setHabitacion_id(reserva.getHabitacion().getId());
+                newReserva.setFecha_inicio(reserva.getFecha_inicio());
+                newReserva.setFecha_fin(reserva.getFecha_fin());
+                listarReservasDTOS.add(newReserva);
+            }
+            return listarReservasDTOS;
+        }
+        return null;
+    }
+    public List<ListarReservasDTO> findbyEstado(String estado) {
+        List<Reserva> reservas = reservaRepository.findByEstado(estado);
+        List<ListarReservasDTO> reservasDTO = new ArrayList<>();
+        ListarReservasDTO reservasDTO1 ;
+        for (Reserva reserva : reservas) {
+            reservasDTO1 = new ListarReservasDTO();
+            reservasDTO1.setFecha_inicio(reserva.getFecha_inicio());
+            reservasDTO1.setFecha_fin(reserva.getFecha_fin());
+                reservasDTO1.setHabitacion_id(reserva.getHabitacion().getId());
+
+
+            reservasDTO.add(reservasDTO1);
+        }
+        return reservasDTO;
+    }
+
+    public boolean checkReserva(int idUsuario, int idHotel, int idReserva) {
+        Reserva reserva = reservaRepository.findById(idReserva);
+        Hotel hotel = iHotelRepository.findById(idHotel).orElse(null);
+        if (reserva != null && hotel != null) return true;
+        else return false;
+    }
+
+
     public int obtenerIdUsuario(String nombre) {
         RestTemplate restTemplate = new RestTemplate();
         String url = "http://localhost:8702/usuarios/info/nombre/?nombre=" + nombre;
-
         try {
-            // Realizar la solicitud GET al servicio de usuarios y obtener la respuesta como Integer
+            //  GET al UsuarioService: respuesta como Integer
             ResponseEntity<Integer> response = restTemplate.exchange(url, HttpMethod.GET, null, Integer.class);
-
-            // Verificar si la respuesta es exitosa y no es nula
             if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
                 // Obtener el ID del usuario de la respuesta
                 int usuarioId = response.getBody();
@@ -103,43 +153,6 @@ public class ReservaService {
     }
 
 
-    public String cambiarEstadoReserva(ReservaCambiarEstadoDTO cambioEstadoReservaDTO) {
-        if (comprobarContrasena(cambioEstadoReservaDTO.getNombre(), cambioEstadoReservaDTO.getContrasena())) {
-            try {
-                Reserva reserva = reservaRepository.findById(cambioEstadoReservaDTO.getReserva_id());
-                if (reserva != null) {
-                    reserva.setEstado(cambioEstadoReservaDTO.getEstado());
-                    reservaRepository.save(reserva);
-                    return "Estado de la reserva cambiado" + cambioEstadoReservaDTO.getEstado();
-                } else return "La reserva con ID " + cambioEstadoReservaDTO.getReserva_id() + "no se encontro";
-            } catch (Exception e) {
-                return "Error al cambiar el estado de la reserva" + e.getMessage();
-            }
-        }else return "";
-    }
+}
 
-        public List<ReservaDTO> listarReserva ( int usuario, String contraseña){
-            List<Reserva> reservas = reservaRepository.findByUsuario(usuario);
-            List<ReservaDTO> reservasDTO = new ArrayList<>();
-            for (Reserva reserva : reservas) {
-                reservasDTO.add(new ReservaDTO(reserva));
-            }
-            return reservasDTO;
-        }
 
-        public List<ReservaDTO> listarReservasSegunEstado (String estado){
-            List<Reserva> reservas = reservaRepository.findByEstado(estado);
-            List<ReservaDTO> reservasDTO = new ArrayList<>();
-            for (Reserva reserva : reservas) {
-                reservasDTO.add(new ReservaDTO(reserva));
-            }
-            return reservasDTO;
-        }
-
-        public boolean checkReserva ( int idUsuario, int idHotel, int idReserva){
-            Reserva reserva = reservaRepository.findById(idReserva);
-            Hotel hotel = iHotelRepository.findById(idHotel).orElse(null);
-            if (reserva != null && hotel != null) return true;
-            else return false;
-        }
-    }

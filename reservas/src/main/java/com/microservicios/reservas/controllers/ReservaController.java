@@ -1,11 +1,10 @@
 package com.microservicios.reservas.controllers;
 
-import com.microservicios.reservas.dto.CrearReservaDTO;
-import com.microservicios.reservas.dto.ReservaCambiarEstadoDTO;
-import com.microservicios.reservas.dto.ReservaDTO;
+import com.microservicios.reservas.dto.*;
 import com.microservicios.reservas.services.HabitacionService;
 import com.microservicios.reservas.services.ReservaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,9 +35,17 @@ public class ReservaController {
     }
 
     @GetMapping()
-    public ResponseEntity<String> listarReservasUsuario(@RequestParam int usuario, @RequestParam String contraseña) {
-        List<ReservaDTO> reservas = reservaService.listarReserva(usuario, contraseña);
-        return ResponseEntity.ok("reservas");
+    public ResponseEntity<List<ListarReservasDTO>> listarReservasUsuario(@RequestBody ValidarUsuarioDTO validarUsuarioDTO) {
+        List<ListarReservasDTO> reservas = reservaService.listarReserva(validarUsuarioDTO);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(reservas);
+    }
+
+    @GetMapping("/{estado}")
+    public ResponseEntity<List<ListarReservasDTO>> listarReservasEstado(@RequestParam String estado, @RequestBody ValidarUsuarioDTO validarUsuarioDTO) {
+        if (reservaService.comprobarContrasena(validarUsuarioDTO.getNombre(), validarUsuarioDTO.getContrasena())) {
+            List<ListarReservasDTO> reservas = reservaService.findbyEstado(estado);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(reservas);
+        } else return null;
     }
 
 
