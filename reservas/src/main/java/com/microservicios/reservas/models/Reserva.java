@@ -28,4 +28,6 @@ public class Reserva {
     private LocalDate fecha_inicio;
     private LocalDate fecha_fin;
     private String estado;
+
+
 }

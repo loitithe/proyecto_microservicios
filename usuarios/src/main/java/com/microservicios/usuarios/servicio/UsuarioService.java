@@ -13,13 +13,16 @@ import java.util.List;
 @Service
 public class UsuarioService {
     @Autowired
-    private  IUserRepository userRepository;
+    private IUserRepository userRepository;
 
     public String saveUser(UsuarioDTO usuarioDTO) {
         // Convertir UsuarioDTO a Usuario antes de guardar
-        Usuario usuario = new Usuario(usuarioDTO.getNombre(), usuarioDTO.getCorreo_electronico(), usuarioDTO.getDireccion(), usuarioDTO.getContrasena());
-        userRepository.save(usuario);
-        return "Usuario creado correctamente";
+        if (userRepository.findByNombre(usuarioDTO.getNombre())!=null){
+            Usuario usuario = new Usuario(usuarioDTO.getNombre(), usuarioDTO.getCorreo_electronico(), usuarioDTO.getDireccion(), usuarioDTO.getContrasena());
+            userRepository.save(usuario);
+            return "Usuario creado correctamente";
+        }else return "El usuario ya existe";
+
     }
 
     public String deleteUser(int id) {
@@ -40,16 +43,13 @@ public class UsuarioService {
         return null;
     }
 
-    public List<UsuarioDTO> findByNombre(String nombre) {
-        List<Usuario> usuarios = userRepository.findAllByNombre(nombre);
-        List<UsuarioDTO> usuariosDTO = new ArrayList<>();
-        if (usuarios != null) {
-            for (Usuario user : usuarios) {
-                usuariosDTO.add(new UsuarioDTO(user));
-            }
-            return usuariosDTO;
+    public int findByNombre(String nombre) {
+        Usuario usuario = userRepository.findByNombre(nombre);
+        System.out.println(usuario.getUsuario_id());
+        if (usuario != null) {
+            return usuario.getUsuario_id();
         }
-        return null;
+        return 0;
     }
 
     public List<UsuarioDTO> findAllUsers() {

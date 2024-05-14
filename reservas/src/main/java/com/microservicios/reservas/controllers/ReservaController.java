@@ -1,6 +1,7 @@
 package com.microservicios.reservas.controllers;
 
 import com.microservicios.reservas.dto.CrearReservaDTO;
+import com.microservicios.reservas.dto.ReservaCambiarEstadoDTO;
 import com.microservicios.reservas.dto.ReservaDTO;
 import com.microservicios.reservas.services.HabitacionService;
 import com.microservicios.reservas.services.ReservaService;
@@ -28,8 +29,8 @@ public class ReservaController {
         return ResponseEntity.ok(mensaje);
     }
 
-    @PatchMapping("")
-    public ResponseEntity<String> cambiarEstadoReserva(@RequestBody ReservaDTO cambioEstadoReservaDTO) {
+    @PatchMapping()
+    public ResponseEntity<String> cambiarEstadoReserva(@RequestBody ReservaCambiarEstadoDTO cambioEstadoReservaDTO) {
         String mensaje = reservaService.cambiarEstadoReserva(cambioEstadoReservaDTO);
         return ResponseEntity.ok(mensaje);
     }

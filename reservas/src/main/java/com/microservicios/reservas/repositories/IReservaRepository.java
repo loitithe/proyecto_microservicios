@@ -12,5 +12,5 @@ public interface IReservaRepository  extends JpaRepository<Reserva,Integer> {
 
     List<Reserva> findByEstado(String estado);
 
-    Reserva findByIdAndUsuario(int reserva_id, int usuario);
+    Reserva findById(int reserva_id);
 }

@@ -23,7 +23,6 @@ public class UsuarioController {
     public UsuarioController(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
-
     /**
      * @param usuario
      * @return
@@ -85,14 +84,11 @@ public class UsuarioController {
      * @return
      */
     @PostMapping("/validar")
-    public ResponseEntity<String> validarUsuario(@RequestBody UsuarioDTO usuarioDTO) {
+    public ResponseEntity<Boolean> validarUsuario(@RequestBody UsuarioDTO usuarioDTO) {
         boolean validado = usuarioService.findByNombreAndContrasena(usuarioDTO.getNombre(),usuarioDTO.getContrasena());
-        if (validado) {
-            return ResponseEntity.ok("Usuario validado");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario no validado");
-        }
+        return ResponseEntity.ok(validado);
     }
+
 // http://localhost:8702/usuarios/info/id/?id=1
     @GetMapping("/info/id/")
     public ResponseEntity<String>getNombreUsuario(@RequestParam int id){
@@ -109,18 +105,12 @@ public class UsuarioController {
      * @return
      */
     @GetMapping("/info/nombre/")
-    public ResponseEntity<Map<String, Object>> getIdUsuario(@RequestParam String nombre){
-        List<UsuarioDTO> usuarios = usuarioService.findByNombre(nombre);
-        if (usuarios != null && !usuarios.isEmpty()) {
-
-            Map<String, Object> usuarioMap = new HashMap<>();
-            for (UsuarioDTO usuario : usuarios) {
-                usuarioMap.put("usuario_id", usuario.getUsuario_id());
-                usuarioMap.put("nombre", usuario.getNombre());
-            }
-            return ResponseEntity.ok(usuarioMap);
+    public ResponseEntity<Integer> getIdUsuario(@RequestParam String nombre){
+       int idUsuario = usuarioService.findByNombre(nombre);
+        if (idUsuario!=0) {
+            return ResponseEntity.ok(idUsuario);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.emptyMap());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(0);
         }
     }
 
