@@ -22,24 +22,45 @@ public class ReservaController {
     @Autowired
     private HabitacionService habitacionService;
 
+    /**
+     *
+     * @param reservaDTO
+     * @return
+     */
     @PostMapping()
     public ResponseEntity<String> crearReserva(@RequestBody CrearReservaDTO reservaDTO) {
         String mensaje = reservaService.crearReserva(reservaDTO);
         return ResponseEntity.ok(mensaje);
     }
 
+    /**
+     *
+     * @param cambioEstadoReservaDTO
+     * @return
+     */
     @PatchMapping()
     public ResponseEntity<String> cambiarEstadoReserva(@RequestBody ReservaCambiarEstadoDTO cambioEstadoReservaDTO) {
         String mensaje = reservaService.cambiarEstadoReserva(cambioEstadoReservaDTO);
         return ResponseEntity.ok(mensaje);
     }
 
+    /**
+     *
+     * @param validarUsuarioDTO
+     * @return
+     */
     @GetMapping()
     public ResponseEntity<List<ListarReservasDTO>> listarReservasUsuario(@RequestBody ValidarUsuarioDTO validarUsuarioDTO) {
         List<ListarReservasDTO> reservas = reservaService.listarReserva(validarUsuarioDTO);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(reservas);
     }
 
+    /**
+     * http://localhost:8701/reservas/estado?estado=Pendiente
+     * @param estado
+     * @param validarUsuarioDTO
+     * @return
+     */
     @GetMapping("/{estado}")
     public ResponseEntity<List<ListarReservasDTO>> listarReservasEstado(@RequestParam String estado, @RequestBody ValidarUsuarioDTO validarUsuarioDTO) {
         if (reservaService.comprobarContrasena(validarUsuarioDTO.getNombre(), validarUsuarioDTO.getContrasena())) {
@@ -48,9 +69,19 @@ public class ReservaController {
         } else return null;
     }
 
-
+    /**
+     * http://localhost:8701/reservas/check?idUsuario=1&idReserva=1&idHotel=1
+     * @param idUsuario
+     * @param idReserva
+     * @param idHotel
+     * @return
+     */
     @GetMapping("/check")
-    public ResponseEntity<Boolean> checkReserva(@RequestBody CheckReservaDTO checkReservaDTO) {
+    public ResponseEntity<Boolean> checkReserva(@RequestParam int idUsuario,@RequestParam int idReserva,@RequestParam int idHotel) {
+        CheckReservaDTO checkReservaDTO = new CheckReservaDTO();
+        checkReservaDTO.setIdUsuario(idUsuario);
+        checkReservaDTO.setIdReserva(idReserva);
+        checkReservaDTO.setIdHotel(idHotel);
         boolean existeReserva = reservaService.checkReserva(checkReservaDTO);
         return ResponseEntity.ok(existeReserva);
     }

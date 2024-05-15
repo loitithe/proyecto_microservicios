@@ -23,7 +23,6 @@ public class ReservaService {
     @Autowired
     private IReservaRepository reservaRepository;
 
-
     @Autowired
     private HabitacionService habitacionService;
     @Autowired
@@ -72,8 +71,6 @@ public class ReservaService {
     }
 
 
-
-
     public String cambiarEstadoReserva(ReservaCambiarEstadoDTO cambioEstadoReservaDTO) {
         if (comprobarContrasena(cambioEstadoReservaDTO.getNombre(), cambioEstadoReservaDTO.getContrasena())) {
             try {
@@ -107,28 +104,26 @@ public class ReservaService {
         }
         return null;
     }
+
     public List<ListarReservasDTO> findbyEstado(String estado) {
         List<Reserva> reservas = reservaRepository.findByEstado(estado);
         List<ListarReservasDTO> reservasDTO = new ArrayList<>();
-        ListarReservasDTO reservasDTO1 ;
+        ListarReservasDTO reservasDTO1;
         for (Reserva reserva : reservas) {
             reservasDTO1 = new ListarReservasDTO();
             reservasDTO1.setFecha_inicio(reserva.getFecha_inicio());
             reservasDTO1.setFecha_fin(reserva.getFecha_fin());
-                reservasDTO1.setHabitacion_id(reserva.getHabitacion().getId());
-
-
+            reservasDTO1.setHabitacion_id(reserva.getHabitacion().getId());
             reservasDTO.add(reservasDTO1);
         }
         return reservasDTO;
     }
 
     public boolean checkReserva(CheckReservaDTO checkReservaDTO) {
-        Reserva reserva = reservaRepository.findById(checkReservaDTO.getIdReserva());
-        Hotel hotel = iHotelRepository.findById(checkReservaDTO.getIdHotel()).orElse(null);
-
-        if (reserva != null && hotel != null) return true;
+        Reserva reserva = reservaRepository.findcheckReserva(checkReservaDTO.getIdUsuario(), checkReservaDTO.getIdHotel(),checkReservaDTO.getIdReserva());
+        if (reserva != null) return true;
         else return false;
+
     }
 
 
