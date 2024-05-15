@@ -123,9 +123,10 @@ public class ReservaService {
         return reservasDTO;
     }
 
-    public boolean checkReserva(int idUsuario, int idHotel, int idReserva) {
-        Reserva reserva = reservaRepository.findById(idReserva);
-        Hotel hotel = iHotelRepository.findById(idHotel).orElse(null);
+    public boolean checkReserva(CheckReservaDTO checkReservaDTO) {
+        Reserva reserva = reservaRepository.findById(checkReservaDTO.getIdReserva());
+        Hotel hotel = iHotelRepository.findById(checkReservaDTO.getIdHotel()).orElse(null);
+
         if (reserva != null && hotel != null) return true;
         else return false;
     }

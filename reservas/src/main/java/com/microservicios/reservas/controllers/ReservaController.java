@@ -50,8 +50,8 @@ public class ReservaController {
 
 
     @GetMapping("/check")
-    public ResponseEntity<Boolean> checkReserva(@RequestParam int idUsuario, @RequestParam int idHotel, @RequestParam int idReserva) {
-        boolean existeReserva = reservaService.checkReserva(idUsuario, idHotel, idReserva);
+    public ResponseEntity<Boolean> checkReserva(@RequestBody CheckReservaDTO checkReservaDTO) {
+        boolean existeReserva = reservaService.checkReserva(checkReservaDTO);
         return ResponseEntity.ok(existeReserva);
     }
 }
