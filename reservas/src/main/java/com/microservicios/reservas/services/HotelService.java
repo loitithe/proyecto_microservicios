@@ -56,17 +56,15 @@ public class HotelService {
         }
     }
 
-    public String obtenerIdApartirNombre(String nombre) {
+    public int obtenerIdApartirNombre(String nombre) {
         try {
             Hotel hotel = hotelRepository.findByNombre(nombre);
             if (hotel != null) {
-                return "ID del hotel con nombre " + nombre + ": " + hotel.getHotel_id();
-            } else {
-                return "Hotel no encontrado con nombre " + nombre;
+                return  hotel.getHotel_id();
             }
         } catch (Exception e) {
-            return "Error al obtener el ID del hotel a partir del nombre: " + e.getMessage();
         }
+        return 0;
     }
 
     public String obtenerNombreAPartirId(int id) {

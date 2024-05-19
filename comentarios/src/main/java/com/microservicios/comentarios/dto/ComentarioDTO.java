@@ -17,7 +17,7 @@ public class ComentarioDTO {
     private int reservaId;
     private double  puntuacion;
     private String comentario;
-    private Date fechaCreacion;
+    private String fechaCreacion;
 
     public ComentarioDTO(Comentario comentario){
         this.id = comentario.getId();
@@ -26,7 +26,7 @@ public class ComentarioDTO {
         this.reservaId= comentario.getReservaId();
         this.puntuacion= comentario.getPuntuacion();
         this.comentario=comentario.getComentario();
-        this.fechaCreacion=comentario.getFechaCreacion();
+        this.fechaCreacion=comentario.getFechaCreacion().toString();
     }
 
 }

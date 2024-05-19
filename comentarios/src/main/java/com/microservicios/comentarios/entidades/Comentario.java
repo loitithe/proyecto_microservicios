@@ -1,18 +1,21 @@
 package com.microservicios.comentarios.entidades;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
+@Builder
 @Document(collection = "comentarios")
 public class Comentario {
     @Id
@@ -22,6 +25,6 @@ public class Comentario {
     private int reservaId;
     private double  puntuacion;
     private String comentario;
-    private Date fechaCreacion;
+    private LocalDateTime fechaCreacion;
 
 }

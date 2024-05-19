@@ -38,8 +38,8 @@ public class HotelController {
     }
 
     @PostMapping("/id")
-    public ResponseEntity<String> obtenerIdApartirNombre(@RequestParam String nombre) {
-        String id = hotelService.obtenerIdApartirNombre(nombre);
+    public ResponseEntity<Integer> obtenerIdApartirNombre(@RequestParam String nombre) {
+        int id = hotelService.obtenerIdApartirNombre(nombre);
         return ResponseEntity.ok(id);
     }
 
