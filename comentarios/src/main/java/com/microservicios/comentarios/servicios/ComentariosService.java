@@ -198,4 +198,11 @@ public class ComentariosService {
         }
     }
 
+    public Double mediaPuntuacionPorUsuario(int idUsuario){
+        try {
+            return iComentariosRepository.mediaUsuario(idUsuario).getUniqueMappedResult().getDouble("media");
+        }catch (NullPointerException e){
+            return -1.0;
+        }
+    }
 }

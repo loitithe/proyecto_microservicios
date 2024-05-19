@@ -83,6 +83,11 @@ public class ComentariosController {
             return  comentariosService.mostrarComentarioReservaUsuario(mostrarComentarioReservaDTO);
         }else return  Collections.emptyList();
     }
-
-
+    @QueryMapping
+    public Double puntuacionesMediasUsuario(@Argument UserPassDTO userPassDTO){
+        if(comentariosService.validarUsuario(userPassDTO)){
+            int idUsuario = comentariosService.obtenerIdUsuario(userPassDTO.getNombre());
+            return comentariosService.mediaPuntuacionPorUsuario(idUsuario);
+        }else return null;
+    }
 }

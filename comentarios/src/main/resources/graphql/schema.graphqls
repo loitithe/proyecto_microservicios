@@ -5,9 +5,10 @@ type Mutation {
 }
 type Query {
     listarComentariosHotel(listarComentariosHotelDTO: ListarComentariosHotelInput): [ListarComentariosHotel],
-    puntuacionMediaHotel(obtenerHotelDTO: ObtenerHotelDTO): Float,
     listarComentariosUsuario(userPassDTO: UserPassDTOInput):[ListarComentariosHotel],
-    mostrarComentarioUsuarioReserva(mostrarComentarioReservaDTO: MostrarComentarioReservaDTO): [ListarComentariosHotel]
+    mostrarComentarioUsuarioReserva(mostrarComentarioReservaDTO: MostrarComentarioReservaDTO): [ListarComentariosHotel],
+    puntuacionMediaHotel(obtenerHotelDTO: ObtenerHotelDTO): Float,
+    puntuacionesMediasUsuario(userPassDTO:UserPassDTOInput): Float
 }
 
 input UserPassDTOInput {

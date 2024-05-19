@@ -17,6 +17,10 @@ public interface IComentariosRepository extends MongoRepository<Comentario, Stri
     List<Comentario>findByUsuarioId(int usuarioId);
 
     List<Comentario> findByUsuarioIdAndReservaId(int usuarioId, Integer reservaId);
+
     @Aggregation(pipeline = {"{$match: {hotelId: ?0}}","{$group: {_id: null, media: {$avg:\"$puntuacion\"}}}"})
     AggregationResults<Document> puntuacionMediaHotel(int idHotel);
+
+    @Aggregation(pipeline = {"{$match: {usuarioId: ?0}}","{$group: {_id: null, media: {$avg:\"$puntuacion\"}}}"})
+    AggregationResults<Document> mediaUsuario(int idUsuario);
 }

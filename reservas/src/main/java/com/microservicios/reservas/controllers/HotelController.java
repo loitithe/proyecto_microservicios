@@ -48,4 +48,6 @@ public class HotelController {
         String nombre = hotelService.obtenerNombreAPartirId(id);
         return ResponseEntity.ok(nombre);
     }
+
+
 }
