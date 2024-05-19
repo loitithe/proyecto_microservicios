@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="usuarios" />
+        <module name="apigateaway" />
         <module name="eurekaServer" />
         <module name="comentarios" />
         <module name="reservas" />
@@ -20,6 +21,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Empleados" options="-parameters" />
+      <module name="apigateaway" options="-parameters" />
       <module name="comentarios" options="-parameters" />
       <module name="eurekaServer" options="-parameters" />
       <module name="reservas" options="-parameters" />

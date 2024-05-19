@@ -12,6 +12,7 @@
 		<module>usuarios</module>
 		<module>comentarios</module>
      	 <module>reservas</module>
+		<module>apigateaway</module>
 	</modules>
 	<properties> <!-- Propiedades del proyecto-->
 		<java.version>17</java.version>
