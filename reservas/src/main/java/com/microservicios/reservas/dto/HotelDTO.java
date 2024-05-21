@@ -15,4 +15,9 @@ public class HotelDTO {
         this.nombre=hotel.getNombre();
         this.direccion=hotel.getDireccion();
     }
+    public HotelDTO(String nombre,String direccion){
+
+        this.nombre=nombre;
+        this.direccion=direccion;
+    }
 }

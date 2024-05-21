@@ -1,6 +1,7 @@
 package com.microservicios.reservas.dto;
 
 import com.microservicios.reservas.models.Reserva;
+import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,6 +17,7 @@ public class CrearReservaDTO {
     private LocalDate fecha_inicio;
     private LocalDate fecha_fin;
     private int habitacion_id;
+    @Pattern(regexp = ("Pendiente|Confirmada|Cancelada"),message = "Debes introducir un estado valido")
     private String estado;
 
     public CrearReservaDTO(String nombre,String contrasena,Reserva reserva){

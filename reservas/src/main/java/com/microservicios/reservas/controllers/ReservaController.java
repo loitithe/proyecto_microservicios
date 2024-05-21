@@ -3,12 +3,17 @@ package com.microservicios.reservas.controllers;
 import com.microservicios.reservas.dto.*;
 import com.microservicios.reservas.services.HabitacionService;
 import com.microservicios.reservas.services.ReservaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/reservas")
@@ -28,7 +33,7 @@ public class ReservaController {
      * @return
      */
     @PostMapping()
-    public ResponseEntity<String> crearReserva(@RequestBody CrearReservaDTO reservaDTO) {
+    public ResponseEntity<String> crearReserva(@Valid @RequestBody CrearReservaDTO reservaDTO) {
         String mensaje = reservaService.crearReserva(reservaDTO);
         return ResponseEntity.ok(mensaje);
     }
@@ -84,5 +89,20 @@ public class ReservaController {
         checkReservaDTO.setIdHotel(idHotel);
         boolean existeReserva = reservaService.checkReserva(checkReservaDTO);
         return ResponseEntity.ok(existeReserva);
+    }
+    // Para capturar los errores de validación
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
+
+        Map<String, String> errors = new HashMap<>();
+
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+
+        return errors;
     }
 }

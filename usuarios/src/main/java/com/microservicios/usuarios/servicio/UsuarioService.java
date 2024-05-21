@@ -1,10 +1,13 @@
 package com.microservicios.usuarios.servicio;
 
 
+import com.microservicios.usuarios.dto.ActualizarUsuarioDTO;
 import com.microservicios.usuarios.repositorio.IUserRepository;
 import com.microservicios.usuarios.entidades.Usuario;
 import com.microservicios.usuarios.dto.UsuarioDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,18 +18,18 @@ public class UsuarioService {
     @Autowired
     private IUserRepository userRepository;
 
-    public String saveUser(UsuarioDTO usuarioDTO) {
+    public ResponseEntity<String> saveUser(UsuarioDTO usuarioDTO) {
         // Convertir UsuarioDTO a Usuario antes de guardar
-        if (userRepository.findByNombre(usuarioDTO.getNombre())!=null){
+        if (userRepository.findByNombre(usuarioDTO.getNombre())==null){
             Usuario usuario = new Usuario(usuarioDTO.getNombre(), usuarioDTO.getCorreo_electronico(), usuarioDTO.getDireccion(), usuarioDTO.getContrasena());
             userRepository.save(usuario);
-            return "Usuario creado correctamente";
-        }else return "El usuario ya existe";
+            return ResponseEntity.status(HttpStatus.CREATED).body("usuario guardado");
+        }else  return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("usuario duplicado");
 
     }
 
-    public String deleteUser(int id) {
-        Usuario usuario = userRepository.findById(id).orElse(null);
+    public String deleteUser(UsuarioDTO usuarioDTO) {
+        Usuario usuario = userRepository.findByNombreAndContrasena(usuarioDTO.getNombre(), usuarioDTO.getContrasena());
         if (usuario != null) {
             userRepository.delete(usuario);
             System.out.println();
@@ -71,22 +74,23 @@ public class UsuarioService {
         return false;
     }
 
+
+
     public UsuarioDTO getByNombreAndContrasena(String nombre, String contrasena) {
         Usuario usuario = userRepository.findByNombreAndContrasena(nombre, contrasena);
         return new UsuarioDTO(usuario);
     }
 
-    public String actualizarUsuario(UsuarioDTO usuarioDTO) {
-        Usuario user = userRepository.findById(usuarioDTO.getUsuario_id()).orElse(null);
+    public ResponseEntity<String> actualizarUsuario(ActualizarUsuarioDTO usuarioDTO) {
+        Usuario user = userRepository.findById(usuarioDTO.getId()).orElse(null);
         if (user != null) {
-            user.setUsuario_id(usuarioDTO.getUsuario_id());
             user.setNombre(usuarioDTO.getNombre());
             user.setCorreo_electronico(usuarioDTO.getCorreo_electronico());
             user.setDireccion(usuarioDTO.getDireccion());
             user.setContrasena(usuarioDTO.getContrasena());
             userRepository.save(user);
-            return "Usuario actualizado correctamente";
-        } else return "Error: El usuario no existe";
+           return ResponseEntity.status(HttpStatus.CREATED).body("usuario actualizado");
+        } else return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("usuario no actualizado");
     }
 
     public Boolean checkIfExists(int id) {

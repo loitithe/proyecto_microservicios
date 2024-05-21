@@ -133,7 +133,7 @@ public class ReservaService {
         try {
             //  GET al UsuarioService: respuesta como Integer
             ResponseEntity<Integer> response = restTemplate.exchange(url, HttpMethod.GET, null, Integer.class);
-            if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
+            if (response.getBody() != null) {
                 // Obtener el ID del usuario de la respuesta
                 int usuarioId = response.getBody();
                 System.out.println("ID del usuario obtenido correctamente: " + usuarioId);

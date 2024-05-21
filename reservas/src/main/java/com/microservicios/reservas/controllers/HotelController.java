@@ -7,15 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/hotel")
+@RequestMapping("reservas/hotel")
 public class HotelController {
     @Autowired
-    private final HotelService hotelService;
+    private  HotelService hotelService;
 
-    @Autowired
-    public HotelController(HotelService hotelService) {
-        this.hotelService = hotelService;
-    }
+
 
     @PostMapping("")
     public ResponseEntity<String> crearHotel(@RequestBody HotelDTO hotelDTO) {
