@@ -6,6 +6,7 @@ import com.microservicios.reservas.dto.UserpassDTO;
 import com.microservicios.reservas.models.Habitacion;
 import com.microservicios.reservas.services.HabitacionService;
 import com.microservicios.reservas.services.ReservaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,13 +22,13 @@ public class HabitacionContrller {
 
 
     @PostMapping("")
-    public ResponseEntity<String> crearHabitacion(@RequestBody CrearHabitacionDTO habitacionDTO) {
+    public ResponseEntity<String> crearHabitacion(@Valid  @RequestBody CrearHabitacionDTO habitacionDTO) {
         String mensaje = habitacionService.crearHabitacion(habitacionDTO);
         return ResponseEntity.ok(mensaje);
     }
 
     @PatchMapping("")
-    public ResponseEntity<String> actualizarHabitacion(@RequestBody CrearHabitacionDTO habitacionDTO) {
+    public ResponseEntity<String> actualizarHabitacion(@Valid @RequestBody CrearHabitacionDTO habitacionDTO) {
         String mensaje = habitacionService.actualizarHabitacion(habitacionDTO);
         return ResponseEntity.ok(mensaje);
     }

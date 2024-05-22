@@ -30,6 +30,9 @@ public class UsuarioDTO {
         this.direccion= usuario1.getDireccion();
         this.contrasena= usuario1.getContrasena();
     }
-
+    public UsuarioDTO(String nombre ,String contrasena) {
+        this.nombre=nombre;
+        this.contrasena= contrasena;
+    }
 
 }

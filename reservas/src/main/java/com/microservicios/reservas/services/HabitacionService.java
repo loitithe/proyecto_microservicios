@@ -5,6 +5,7 @@ import com.microservicios.reservas.dto.CrearHabitacionDTO;
 import com.microservicios.reservas.dto.CrearReservaDTO;
 import com.microservicios.reservas.dto.HabitacionDTO;
 import com.microservicios.reservas.models.Habitacion;
+import com.microservicios.reservas.models.Hotel;
 import com.microservicios.reservas.models.Reserva;
 import com.microservicios.reservas.repositories.IHabitacionRepository;
 import com.microservicios.reservas.repositories.IHotelRepository;
@@ -60,21 +61,28 @@ public class HabitacionService {
         if (comprobarContrasena(habitacionDTO.getNombre(), habitacionDTO.getContraseña())) {
 
             Habitacion habitacion = habitacionRepository.findById(habitacionDTO.getId());
-            if (habitacion != null) {
-                habitacion.setHotel(hotelRepository.findById(habitacionDTO.getHotel_id()).orElse(null));
+            Hotel hotel = hotelRepository.findById(habitacionDTO.getHotel_id()).orElse(null);
+            if (habitacion != null && hotel!=null) {
+                habitacion.setHotel(hotel);
                 habitacion.setTipo(habitacionDTO.getTipo());
                 habitacion.setDisponible(habitacionDTO.isDisponible());
                 habitacion.setPrecio(habitacionDTO.getPrecio());
                 habitacion.setNumero_habitacion(habitacionDTO.getNumero_habitacion());
                 habitacionRepository.save(habitacion);
                 return "Habitacion actualizada";
-            } else return "Habitacion no encontrada";
+            } else return "Habitacion/Hotel no valido";
         }else return "Usuario/Contraseña no valido";
     }
 
     public String eliminarHabitacion(int id) {
-        this.habitacionRepository.delete(this.habitacionRepository.findById(id));
-        return "habitacion eliminada";
+        Habitacion habitacion = habitacionRepository.findById(id);
+        if (habitacion!=null){
+
+            this.habitacionRepository.delete(habitacion);
+            return "habitacion eliminada";
+        }else{
+            return "el id no es valido";
+        }
     }
 
     public HabitacionDTO obtenerHabitacionPorId(int id) {

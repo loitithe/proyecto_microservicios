@@ -2,6 +2,7 @@ package com.microservicios.reservas.dto;
 
 import com.microservicios.reservas.models.Habitacion;
 import com.microservicios.reservas.models.Hotel;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 import java.io.Serializable;
@@ -19,6 +20,8 @@ public class CrearHabitacionDTO implements Serializable {
     private int id;
     private int hotel_id;
     private int numero_habitacion;
+    @Pattern(regexp = ("Individual|Doble|Triple|Suite"),message = "Debes introducir un tipo de habitacion valido")
+
     private String tipo ;
     private BigDecimal precio;
     private boolean disponible;

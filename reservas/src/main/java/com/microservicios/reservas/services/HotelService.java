@@ -1,10 +1,16 @@
 package com.microservicios.reservas.services;
 
+import com.microservicios.reservas.dto.CrearReservaDTO;
 import com.microservicios.reservas.dto.HotelDTO;
 import com.microservicios.reservas.models.Hotel;
 import com.microservicios.reservas.repositories.IHotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Optional;
 
@@ -13,7 +19,24 @@ public class HotelService {
     @Autowired
     private IHotelRepository hotelRepository;
 
+    public boolean comprobarContrasena(String nombre, String contrasena) {
+        RestTemplate restTemplate = new RestTemplate();
+        String urlValidarContrasena = "http://localhost:8702/usuarios/validar";
 
+        CrearReservaDTO crearReservaDTO = new CrearReservaDTO();
+        crearReservaDTO.setNombre(nombre);
+        crearReservaDTO.setContrasena(contrasena);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<CrearReservaDTO> request = new HttpEntity<>(crearReservaDTO, headers);
+        ResponseEntity<Boolean> response = restTemplate.postForEntity(urlValidarContrasena, request, Boolean.class);
+        if (response.getBody() != null) {
+            return response.getBody();
+        } else {
+            return false;
+        }
+    }
     public String crearHotel(HotelDTO hotelDTO) {
         try {
             Hotel hotel = new Hotel();
