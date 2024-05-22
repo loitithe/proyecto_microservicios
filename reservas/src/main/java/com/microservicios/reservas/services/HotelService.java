@@ -2,7 +2,9 @@ package com.microservicios.reservas.services;
 
 import com.microservicios.reservas.dto.CrearReservaDTO;
 import com.microservicios.reservas.dto.HotelDTO;
+import com.microservicios.reservas.models.Habitacion;
 import com.microservicios.reservas.models.Hotel;
+import com.microservicios.reservas.repositories.IHabitacionRepository;
 import com.microservicios.reservas.repositories.IHotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -12,13 +14,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class HotelService {
     @Autowired
     private IHotelRepository hotelRepository;
-
+    @Autowired
+    private IHabitacionRepository habitacionRepository;
     public boolean comprobarContrasena(String nombre, String contrasena) {
         RestTemplate restTemplate = new RestTemplate();
         String urlValidarContrasena = "http://localhost:8702/usuarios/validar";
@@ -69,6 +73,12 @@ public class HotelService {
         try {
             Hotel hotel = hotelRepository.findById(id).orElse(null);
             if (hotel != null) {
+                List<Habitacion> habitacion = habitacionRepository.findByHotelId(id);
+                for (Habitacion hab : habitacion) {
+                    if (hab.getHotel().getHotel_id()==id){
+                        habitacionRepository.delete(hab);
+                    }
+                }
                 hotelRepository.delete(hotel);
                 return "Hotel eliminado correctamente";
             } else {
