@@ -73,12 +73,6 @@ public class HotelService {
         try {
             Hotel hotel = hotelRepository.findById(id).orElse(null);
             if (hotel != null) {
-                List<Habitacion> habitacion = habitacionRepository.findByHotelId(id);
-                for (Habitacion hab : habitacion) {
-                    if (hab.getHotel().getHotel_id()==id){
-                        habitacionRepository.delete(hab);
-                    }
-                }
                 hotelRepository.delete(hotel);
                 return "Hotel eliminado correctamente";
             } else {
